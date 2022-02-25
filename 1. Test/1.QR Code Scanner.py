@@ -4,7 +4,7 @@ from pyzbar.pyzbar import decode
 
 
 #img = cv2.imread('Shantonu.png')
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(3)
 cap.set(3,460)
 cap.set(4,480)
 
