@@ -4,7 +4,7 @@ from pyzbar.pyzbar import decode
 import Arduino
 
 #img = cv2.imread('Shantonu.png')
-cap = cv2.VideoCapture(3)
+cap = cv2.VideoCapture(0)
 cap.set(3, 460)
 cap.set(4, 480)
 
@@ -15,7 +15,7 @@ with open('my_data.txt') as f:
 
 
 while True:
-    Arduino.QrState(0)
+    Arduino.ServoMotor(0)
     success, img = cap.read()
     for barcode in decode(img):
         # print(barcode.data)
@@ -28,7 +28,7 @@ while True:
             print('Authorized')
             welcome = 'WELCOME SIR'
             index = (240, 420)
-            Arduino.QrState(1)
+            Arduino.ServoMotor(1)
 
         else:
             cv2.imshow('Result', img)
@@ -36,7 +36,7 @@ while True:
             welcome = 'YOU DO NOT HAVE PERMISSION SIR'
             myColor = (0, 0, 255)
             index = (50, 450)
-            Arduino.QrState(0)
+            Arduino.ServoMotor(0)
 
         pts = np.array([barcode.polygon], np.int32)
         pts = pts.reshape((-1, 1, 2))
