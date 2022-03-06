@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from pyzbar.pyzbar import decode
 import Arduino
+import threading
 
 #img = cv2.imread('Shantonu.png')
 cap = cv2.VideoCapture(0)
@@ -15,7 +16,7 @@ with open('my_data.txt') as f:
 
 
 while True:
-    Arduino.ServoMotor(0)
+    #Arduino.ServoMotor(0)
     success, img = cap.read()
     for barcode in decode(img):
         # print(barcode.data)
@@ -28,7 +29,10 @@ while True:
             print('Authorized')
             welcome = 'WELCOME SIR'
             index = (240, 420)
-            Arduino.ServoMotor(1)
+            #Arduino.ServoMotor(1)
+
+            y = threading.Thread(target=Arduino.ServoMotor, args=(1, ))
+            y.start()
 
         else:
             cv2.imshow('Result', img)
